@@ -1,0 +1,127 @@
+# Pompa ciepła ##
+- id: sprsun_pc_wybieramy_tryb_pracy_pompy_obiegowej_19e
+  alias: Wybór trybu pracy pompy obiegowej
+  trigger:
+    platform: state
+    entity_id: input_select.sprsun_pc_g02_pump_work_0_interval_1_normal_2_demand_19e
+    id: select
+    to: null
+  condition: []
+  action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: input
+        sequence:
+          - variables:
+              values:
+                "0": 0 Interval
+                "1": 1 Normal
+                "2": 2 Demand
+          - service: input_select.select_option
+            target:
+              entity_id: input_select.sprsun_pc_g02_pump_work_0_interval_1_normal_2_demand_19e
+            data:
+              option: "{{ values.get(trigger.to_state.state) }}"
+      - conditions:
+          - condition: trigger
+            id: select
+        sequence:
+          - service: modbus.write_register
+            data_template:
+              address: 0x019e
+              slave: 1
+              hub: Sprsun PC
+              value: "{{ trigger.to_state.state[0] | int(0)  }}"
+
+- id: sprsun_pc_wybieramy_tryb_pracy_kompresora_190
+  alias: Wybór trybu pracy kompresora
+  trigger:
+    platform: state
+    entity_id: input_select.sprsun_pc_tryb_pracy_kompresora_190
+    id: select
+    to: null
+  condition: []
+  action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: input
+        sequence:
+          - variables:
+              values:
+                "0": 0 Normal
+                "1": 1 ECO
+                "2": 2 Night
+                "3": 3 Test
+          - service: input_select.select_option
+            target:
+              entity_id: input_select.sprsun_pc_tryb_pracy_kompresora_190
+            data:
+              option: "{{ values.get(trigger.to_state.state) }}"
+      - conditions:
+          - condition: trigger
+            id: select
+        sequence:
+          - service: modbus.write_register
+            data_template:
+              address: 0x0190
+              slave: 1
+              hub: Sprsun PC
+              value: "{{ trigger.to_state.state[0] | int(0)  }}"
+
+
+- id: sprsun_pc_wybieramy_tryb_pracy_p06_unit_mode_36
+  alias: Wybór trybu pracy PC
+  trigger:
+    platform: state
+    entity_id: input_select.sprsun_pc_tryb_pracy_p06_unit_mode_36
+    id: select
+    to: null
+  condition: []
+  action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: input
+        sequence:
+          - variables:
+              values:
+                "0": 0 CWU
+                "1": 1 Ogrzewanie
+                "2": 2 Chłodzenie
+                "3": 3 Ogrzewanie i CWU 
+                "4": 4 Chłodzenie i CWU
+          - service: input_select.select_option
+            target:
+              entity_id: input_select.sprsun_pc_tryb_pracy_p06_unit_mode_36
+            data:
+              option: "{{ values.get(trigger.to_state.state) }}"
+      - conditions:
+          - condition: trigger
+            id: select
+        sequence:
+          - service: modbus.write_register
+            data_template:
+              address: 0x0036
+              slave: 1
+              hub: Sprsun PC
+              value: "{{ trigger.to_state.state[0] | int(0)  }}"
+
+
+- id: sprsun_pc_nastawiony_czas_po_g03_start_internal_185
+  alias: Nastawa przerw w załączaniu pompy obiegowej
+  trigger:
+    platform: state
+    entity_id: input_number.sprsun_pc_nastawiony_czas_po_g03_start_internal_185
+  action:
+    service: modbus.write_register
+    data_template:
+      address: 0x0185
+      hub: Sprsun PC
+      unit: 1
+      value: >-
+        {{ ((states('input_number.sprsun_pc_nastawiony_czas_po_g03_start_internal_185') | float) | multiply(1) | int)
+        }}
+
+##################

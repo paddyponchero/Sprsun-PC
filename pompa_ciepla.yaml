@@ -1,0 +1,1234 @@
+sensor:
+
+  - platform: time_date
+    display_options:
+      - 'date_time'
+      - 'time'
+      - 'date'
+
+modbus:
+  - name: "Sprsun PC"
+    delay: 5
+    timeout: 5
+    type: tcp
+    host: 192.168.x.x
+    port: 502
+    
+    climates:
+      - name: "Sprsun Pc ogrzewanie-temperatura zadana (P01 Heating setp)"
+        slave: 1
+        address: 0x00CC
+        input_type: holding
+        data_type: int16
+        max_temp: 55
+        min_temp: 10
+        offset: 0
+        precision: 1
+        scale: 0.5
+        target_temp_register: 0x00CC
+        temp_step: 1.0
+        temperature_unit: C
+        scan_interval: 60
+
+      - name: "Sprsun Pc chłodzenie-temperatura zadana (P02 Cooling setp)"
+        slave: 1
+        address: 0x00CB
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: 12
+        offset: 0
+        precision: 1
+        scale: 0.5
+        target_temp_register: 0x00CB
+        temp_step: 1.0
+        temperature_unit: C
+        scan_interval: 60
+
+      - name: "Sprsun Pc CWU-temperatura zadana (P04 Hotwater setp)"
+        slave: 1
+        address: 0x00CA
+        input_type: holding
+        data_type: int16
+        max_temp: 55
+        min_temp: 10
+        offset: 0
+        precision: 1
+        scale: 0.5
+        target_temp_register: 0x00CA
+        temp_step: 1.0
+        temperature_unit: C
+        scan_interval: 60
+
+      - name: "Sprsun Pc róznica temperatur przy grzaniu (P03 Temp.diff)"
+        slave: 1
+        address: 0x00C6
+        input_type: holding
+        data_type: int16
+        max_temp: 18
+        min_temp: 2
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00C6
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: C
+
+      - name: "Sprsun Pc różnica temperatur dla ciepłej wody (P05 Temp.diff)"
+        slave: 1
+        address: 0x00C8
+        input_type: holding
+        data_type: int16
+        max_temp: 18
+        min_temp: 2
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00C8
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: C
+
+      - name: "Sprsun Pc G04 Delta temp.set"
+        slave: 1
+        address: 0x018D
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: 5
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x018D
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: C
+
+    sensors:
+
+      - name: "Sprsun Pc Switching input symbol"
+        slave: 1
+        address: 0x0002
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Working status mark" 
+        # Working status mark
+        slave: 1
+        address: 0x0003
+        input_type: holding
+        data_type: int16
+        scan_interval: 10
+
+      - name: "Sprsun Pc Output symbol 1"
+        slave: 1
+        address: 0x0004
+        input_type: holding
+        data_type: int16       
+        scan_interval: 60
+
+      - name: "Sprsun Pc Output symbol 2"
+        slave: 1
+        address: 0x0005
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Output symbol 3"
+        slave: 1
+        address: 0x0006
+        input_type: holding
+        data_type: int16     
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 1"
+        slave: 1
+        address: 0x0007
+        input_type: holding
+        data_type: int16        
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 2"
+        slave: 1
+        address: 0x0008
+        input_type: holding
+        data_type: int16     
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 3"
+        slave: 1
+        address: 0x0009
+        input_type: holding
+        data_type: int16      
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 4"
+        slave: 1
+        address: 0x000A
+        input_type: holding
+        data_type: int16       
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 5"
+        slave: 1
+        address: 0x000B
+        input_type: holding
+        data_type: int16       
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 6"
+        slave: 1
+        address: 0x000C
+        input_type: holding
+        data_type: int16      
+        scan_interval: 60
+
+      - name: "Sprsun Pc Failure symbol 7"
+        slave: 1
+        address: 0x000D
+        input_type: holding
+        data_type: int16        
+        scan_interval: 60
+       
+      - name: "Sprsun Pc temperatura powrotu (Inlet temp.)"
+        slave: 1
+        address: 0x000E
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 2
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc temperatura wody użytkowej (Hotwater temp.)"
+        slave: 1
+        address: 0x000F
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc temperatura zewnętrzna (Ambi temp.)"
+        slave: 1
+        address: 0x0011
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.5
+        precision: 1
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc temperatura zasilania (Outlet temp.)"
+        slave: 1
+        address: 0x0012
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: "°C"
+
+
+      - name: "Sprsun Pc temperatura gazu-wlot (Suct gas temp.)"
+        slave: 1
+        address: 0x0015
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.5
+        precision: 1
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc temperatura odparowania (Coil temp.)"
+        slave: 1
+        address: 0x0016
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: "°C"
+       
+      - name: "Sprsun Pc Exhaust temp."
+        slave: 1
+        address: 0x001B
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        
+      - name: "Sprsun Pc zawór EEV1 step."
+        slave: 1
+        address: 0x001C
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        
+      - name: "Sprsun Pc zawór EEV2 step."
+        slave: 1
+        address: 0x001D
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+
+      - name: "Sprsun Pc częstotliwość kompresora (Comp.frequency)"
+        slave: 1
+        address: 0x001E
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 1
+        precision: 1
+        unit_of_measurement: "Hz"
+
+      - name: "Sprsun Pc Frequency conversion failure 1"
+        slave: 1
+        address: 0x001F
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+
+      - name: "Sprsun Pc Frequency conversion failure 2"
+        slave: 1
+        address: 0x0020
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+
+      - name: "Sprsun Pc napięcie szyny DC (DC bus voltage)"
+        slave: 1
+        address: 0x0021
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 1
+        precision: 1
+        unit_of_measurement: "V"
+
+      - name: "Sprsun Pc temperatura (Driving temp.)"
+        slave: 1
+        address: 0x0022
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.5
+        precision: 1
+        unit_of_measurement: "°C"
+        
+      - name: "Sprsun Pc prąd kompresora (Comp.current)"
+        slave: 1
+        address: 0x0023
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 1
+        precision: 1
+        unit_of_measurement: "A"
+
+      - name: "Sprsun Pc docelowa częstotliwość kompresora (Target frequency)"
+        slave: 1
+        address: 0x0024
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 1
+        precision: 1
+        unit_of_measurement: "Hz"
+        
+      - name: "Sprsun Pc prędkość wentylatora 1 (DC fan 1 speed)"
+        slave: 1
+        address: 0x0026
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        unit_of_measurement: "rpm"
+
+      - name: "Sprsun Pc prędkość wentylatora 2 (DC fan 2 speed)"
+        slave: 1
+        address: 0x0027
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        unit_of_measurement: "rpm"
+
+      - name: "Sprsun Pc temperatura parownika (Evap.temp.)"
+        slave: 1
+        address: 0x0028
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc temperatura skraplacza (Cond.temp.)"
+        slave: 1
+        address: 0x0029
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: "°C"
+        
+      - name: "Sprsun Pc Frequency conversion fault 8 bits higher 0xFF"
+        slave: 1
+        address: 0x002A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Frequency conversion fault 8 bits lower 0xFF"
+        slave: 1
+        address: 0x002B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Controller Version"
+        slave: 1
+        address: 0x002C
+        input_type: holding
+        data_type: int16
+        scan_interval: 300
+
+      - name: "Sprsun Pc Display Version"
+        slave: 1
+        address: 0x002D
+        input_type: holding
+        data_type: int16
+        scan_interval: 300
+ 
+      - name: "Sprsun Pc pompka PWM (DC pump speed)"
+        slave: 1
+        address: 0x002E
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 1
+        precision: 1
+        unit_of_measurement: "%"
+
+      - name: "Sprsun Pc ciśnienie gazu-wlot (Suct.press)"
+        slave: 1
+        address: 0x002F
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.01
+        precision: 1
+        unit_of_measurement: "bar"
+
+      - name: "Sprsun Pc ciśnienie gazu - rozprężanie (Disch.press)"
+        slave: 1
+        address: 0x0030
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+        scale: 0.01
+        precision: 1
+        unit_of_measurement: "bar"
+
+      - name: "Sprsun Pc DC fan target"
+        slave: 1
+        address: 0x0031
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        unit_of_measurement: "rpm"
+
+      - name: "Sprsun Pc Parameter marker definition"
+        slave: 1
+        address: 0x0032
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Control mark 1"
+        slave: 1
+        address: 0x0033
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Control mark 2"
+        slave: 1
+        address: 0x0034
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc Timeband"
+        slave: 1
+        address: 0x0035
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc tryb pracy P06 Unit mode"
+        slave: 1
+        address: 0x0036
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+
+      - name: "Sprsun Pc H01 Defrost freq"
+        slave: 1
+        address: 0x0037
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"
+
+      - name: "Sprsun Pc H08 Defrost period 1"
+        slave: 1
+        address: 0x0038
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+    
+      - name: "Sprsun Pc H11 Defrost period 2"
+        slave: 1
+        address: 0x0039
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+     
+      - name: "Sprsun Pc H14 Defrost period 3"
+        slave: 1
+        address: 0x003A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc H15 Comp total run"
+        slave: 1
+        address: 0x003B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc H16 Comp continuous run"
+        slave: 1
+        address: 0x003C
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc H05 Defrost time"
+        slave: 1
+        address: 0x003D
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc A01 MV preiod"
+        slave: 1
+        address: 0x003E
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "s"
+
+######################################
+      - name: "Sprsun Pc B91 AV water exh diff 7"
+        slave: 1
+        address: 0x00C5
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+ #     - name: "Sprsun Pc róznica temperatur przy grzaniu (P03 Temp.diff)"
+ #       slave: 1
+ #       address: 0x00C6
+ #       input_type: holding
+ #       data_type: int16
+ #       scan_interval: 60 
+ #       unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc F39 AC constant temp diff"
+        slave: 1
+        address: 0x00C7
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+ #     - name: "Sprsun Pc różnica temperatur dla ciepłej wody (P05 Temp.diff)"
+ #       slave: 1
+ #       address: 0x00C8
+ #       input_type: holding
+ #       data_type: int16
+ #       scan_interval: 60 
+ #       unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc F40 WT constant temp diff"
+        slave: 1
+        address: 0x00C9
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+# CA, CB, CC są na początku-climate    
+                          
+######################################
+      - name: "Sprsun Pc G08 Comp.delay"
+        slave: 1
+        address: 0x0181
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+
+      - name: "Sprsun Pc G06 Comp.delay"
+        slave: 1
+        address: 0x0182
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+
+      - name: "Sprsun Pc G07 Hotwater heater Ext."
+        slave: 1
+        address: 0x0183
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc G05 heating heater Ext."
+        slave: 1
+        address: 0x0184
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc G03 Start internal"
+        slave: 1
+        address: 0x0185
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "min"
+
+      - name: "Sprsun Pc F13 DC pump mode 0 manual/1 auto"
+        slave: 1
+        address: 0x0186
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+
+      - name: "Sprsun Pc F14 DC pump cycle"
+        slave: 1
+        address: 0x0187
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "s"
+
+      - name: "Sprsun Pc F15 DC pump freq set"
+        slave: 1
+        address: 0x0188
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "%"
+
+      - name: "Sprsun Pc F16 DC pump max freq"
+        slave: 1
+        address: 0x0189
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "%"
+
+      - name: "Sprsun Pc F17 DC pump min freq"
+        slave: 1
+        address: 0x018A
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "%"
+
+      - name: "Sprsun Pc F18 DC pump scale factor"
+        slave: 1
+        address: 0x018B
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+
+      - name: "Sprsun Pc F19 DC pump diff."
+        slave: 1
+        address: 0x018C
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+ 
+    #   - name: "Sprsun Pc G04 Delta temp.set"
+    #     slave: 1
+    #     address: 0x018D
+    #     input_type: holding
+    #     data_type: int16
+    #     scan_interval: 30 
+    #     unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc F21 Comp freq scale factor"
+        slave: 1
+        address: 0x018E
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+      
+      - name: "Sprsun Pc F22 Comp freq diff"
+        slave: 1
+        address: 0x018F
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+  
+      - name: "Sprsun Pc tryb pracy kompresora"
+        slave: 1
+        address: 0x0190
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+ 
+      - name: "Sprsun Pc G09 Enable switch NO linkage YES amb"
+        slave: 1
+        address: 0x0191
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+ 
+      - name: "Sprsun Pc G10 Ambtemp switch setp."
+        slave: 1
+        address: 0x0192
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc G11 Ambtemp diff."
+        slave: 1
+        address: 0x0193
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F27 Limit freq temp diff"
+        slave: 1
+        address: 0x0194
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F28 Dec.freq temp diff"
+        slave: 1
+        address: 0x0195
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F29 Limit freq outlet low"
+        slave: 1
+        address: 0x0196
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F30 Dec.freq outlet low"
+        slave: 1
+        address: 0x0197
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc F31 Limit freq outlet high"
+        slave: 1
+        address: 0x0198
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F32 Dec freq outlet high"
+        slave: 1
+        address: 0x0199
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc Temp.set point of antilegionella"
+        slave: 1
+        address: 0x019A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc G02 Pump work 0-Interval 1-Normal 2-Demand"
+        slave: 1
+        address: 0x019E
+        input_type: holding
+        data_type: int16
+        scan_interval: 30
+ 
+      - name: "Sprsun Pc F35 Antifreeze cycle"
+        slave: 1
+        address: 0x019F
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc F36 Three-way valve cycle"
+        slave: 1
+        address: 0x01A0
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "hour"
+ 
+      - name: "Sprsun Pc F37 Pump cycle in error"
+        slave: 1
+        address: 0x01A1
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "min"
+ 
+      - name: "Sprsun Pc F38 Comp freq cycle"
+        slave: 1
+        address: 0x01A2
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "s"
+ 
+      - name: "Sprsun Pc F41 Air too low stp."
+        slave: 1
+        address: 0x01A3
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc Hotwater Set temp of Timeband 1"
+        slave: 1
+        address: 0x01A4
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc heat Set temp of Timeband 1"
+        slave: 1
+        address: 0x01A5
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc cool Set temp of Timeband 1"
+        slave: 1
+        address: 0x01A6
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc Hotwater Set temp of Timeband 2"
+        slave: 1
+        address: 0x01A7
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc heat Set temp of Timeband 2"
+        slave: 1
+        address: 0x01A8
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc cool Set temp of Timeband 2"
+        slave: 1
+        address: 0x01A9
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc Hotwater Set temp of Timeband 3"
+        slave: 1
+        address: 0x01AA
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc heat Set temp of Timeband 3"
+        slave: 1
+        address: 0x01AB
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc cool Set temp of Timeband 3"
+        slave: 1
+        address: 0x01AC
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc Week set of Timeband 1"
+        slave: 1
+        address: 0x01AD
+        input_type: holding
+        data_type: int16
+        scan_interval: 300 
+
+      - name: "Sprsun Pc Week set of Timeband 2"
+        slave: 1
+        address: 0x01AE
+        input_type: holding
+        data_type: int16
+        scan_interval: 300 
+
+      - name: "Sprsun Pc Week set of Timeband 3"
+        slave: 1
+        address: 0x01AF
+        input_type: holding
+        data_type: int16
+        scan_interval: 300 
+ 
+      - name: "Sprsun Pc H17 Def fan high press"
+        slave: 1
+        address: 0x01B0
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "bar"
+ 
+      - name: "Sprsun Pc H18 Def fan speed"
+        slave: 1
+        address: 0x01B1
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        scale: 10
+        unit_of_measurement: "Hz"
+ 
+      - name: "Sprsun Pc F47 High press adjust"
+        slave: 1
+        address: 0x01B2
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+ 
+      - name: "Sprsun Pc F48 Low press adjust"
+        slave: 1
+        address: 0x01B3
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+ 
+      - name: "Sprsun Pc F51 Air too low diff"
+        slave: 1
+        address: 0x01B4
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+ 
+      - name: "Sprsun Pc B93 AV init outlet stp"
+        slave: 1
+        address: 0x01B5
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F53 Outlet temp offset stp"
+        slave: 1
+        address: 0x01B6
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F52 Outlet temp offset"
+        slave: 1
+        address: 0x01B7
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F54 Heat upper limit stp"
+        slave: 1
+        address: 0x01B8
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+  
+      - name: "Sprsun Pc F55 Cool lower limit stp"
+        slave: 1
+        address: 0x01B9
+        input_type: holding
+        data_type: int16
+        scan_interval: 30 
+        unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc F56 Model selection2-A202508-CGK-025V3L-B 9.5 kW 380V"
+        slave: 1
+        address: 0x01BA
+        input_type: holding
+        data_type: int16
+        scan_interval: 300 
+
+      - name: "Sprsun Pc R94 Oil return freq."
+        slave: 1
+        address: 0x01BB
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"
+
+# input_text:
+#   sunpc_status:
+#   sunpc_tryb_wentylatora:
+#   sunpc_alarm:
+
+input_number:
+  sprsun_pc_nastawiony_czas_po_g03_start_internal_185:
+    name: Nastawiony czas przerw pracy pompy obiegowej
+    min: 1
+    max: 120
+    step: 1
+ 
+input_select:
+  sprsun_pc_tryb_pracy_p06_unit_mode_36:
+    name: Wybór trybu pracy P06 Unit mode
+    options:
+      - 0 CWU
+      - 1 Ogrzewanie
+      - 2 Chłodzenie
+      - 3 Ogrzewanie i CWU     
+      - 4 Chłodzenie i CWU
+
+  sprsun_pc_tryb_pracy_kompresora_190:
+    name: Wybór trybu pracy kompresora
+    options:
+      - 0 Normal
+      - 1 ECO
+      - 2 Night
+      - 3 Test
+
+  sprsun_pc_g02_pump_work_0_interval_1_normal_2_demand_19e:
+    name: Wybór trybu pracy pompy obiegowej
+    options:
+      - 0 Interval
+      - 1 Normal
+      - 2 Demand
+
+
+switch:
+  - platform: template
+    switches:
+      sprsun_pc_wlaczenie_pompy_ciepla:
+        value_template: "{{ states('sensor.sprsun_pc_parameter_marker_definition') | int(default=0) | bitwise_and(1) > 0 }}"
+        turn_on:
+          - service: modbus.write_register
+            data:
+              hub: Sprsun PC
+              unit: 1
+              address: 0x0032
+              value: >
+                {% set reg = states.sensor.sprsun_pc_parameter_marker_definition.state | int(default=0) %}
+                {% set bit = 1 %}
+                {{ reg | bitwise_or(2 ** (bit - 1)) }}
+          - service: homeassistant.update_entity
+            data:
+              entity_id: sensor.sprsun_pc_parameter_marker_definition
+        turn_off:
+          - service: modbus.write_register
+            data:
+              hub: Sprsun PC
+              unit: 1
+              address: 0x0032
+              value: >
+                {% set reg = states.sensor.sprsun_pc_parameter_marker_definition.state | int(default=0) %}
+                {% set bit = 1 %}
+                {{ reg | bitwise_and(65535 - (2 ** (bit - 1))) }}
+          - service: homeassistant.update_entity
+            data:
+              entity_id: sensor.sprsun_pc_parameter_marker_definition
+
+template:
+  - sensor:
+    - name: "Data godzina dzień"
+      state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%Y-%m-%d %H:%m:%s %A') }}"
+      icon: "mdi:calendar-clock"
+        
+  - binary_sensor:
+# working_status_mark
+    - name: Sprsun PC hotwater demand
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(1) > 0 }}"
+      icon: mdi:water-boiler-alert
+    - name: Sprsun PC heating demand
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(2) > 0 }}"
+      icon: mdi:water-boiler
+    - name: Sprsun PC with or without heating
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(4) > 0 }}"
+      icon: mdi:water-boiler-alert
+    - name: Sprsun PC with or without cooling
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(8) > 0 }}"
+      icon: mdi:timer-off
+    - name: Sprsun PC antilegionella on
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(16) > 0 }}"
+      icon: mdi:account-cancel
+    - name: Sprsun PC cooling demand
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(32) > 0 }}"
+      icon: mdi:connection
+    - name: Sprsun PC alarm downtime
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(64) > 0 }}"
+      icon: mdi:water-boiler-off
+    - name: Sprsun PC defrost
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(128) > 0 }}"
+      icon: mdi:hand-front-right
+      
+# parameter_marker_definition
+    - name: Sprsun PC  0-OFF，1-ON(bit add:0x0320)
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC MV mode：0-Auto，1- manu(bit add:0x0321)(A45)
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC Manual frequency selection(bit add:0x0322)
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(4) > 0 }}"
+    - name: Sprsun PC AV MODE：0-Auto，1- manu(bit add:0x0325) (B01)
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC AV init outlet stp. (bit add:0x0326) (B93)
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(64) > 0 }}"
+# sprsun_pc_switching_input_symbol
+    - name: Sprsun PC A/C Linkage switch
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Linkage switch
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC Heating linkage
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(4) > 0 }}"
+    - name: Sprsun PC Cooling linkage
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(8) > 0 }}"
+    - name: Sprsun PC Flow Switch
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(16) > 0 }}"
+    - name: Sprsun PC High pressure switch
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC Phase sequence detection
+      state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(64) > 0 }}"
+    
+# sprsun_pc_output_symbol_1
+    - name: Sprsun PC Compressor
+      state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Fan
+      state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC 4-way valve
+      state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(64) > 0 }}"
+    - name: Sprsun PC High or low fan speed:0-low 1-high
+      state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(128) > 0 }}"
+# sprsun_pc_output_symbol_2
+    - name: Sprsun PC Chassis heater
+      state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Heating heater
+      state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC Three-way valve
+      state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(64) > 0 }}"
+    - name: Sprsun PC Hotwater heater
+      state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(128) > 0 }}"
+# sprsun_pc_output_symbol_3
+    - name: Sprsun PC A/C PUMP
+      state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Crank heater
+      state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC Assistant solenoid valve
+      state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC Pump
+      state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(64) > 0 }}"
+
+# sprsun_pc_failure_symbol_1
+    - name: Sprsun PC Hotwater temp
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Ambi temp
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC coil temp
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(4) > 0 }}"
+    - name: Sprsun PC Outlet temp
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(16) > 0 }}"
+    - name: Sprsun PC High pressure sensor failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC Phase sequence
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(128) > 0 }}"
+# sprsun_pc_failure_symbol_2
+    - name: Sprsun PC Water flow failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_2')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC High protection of heating water outlet
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_2')|int|bitwise_and(4) > 0 }}"
+# sprsun_pc_failure_symbol_3
+    - name: Sprsun PC Outlet gas temp. failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_3')|int|bitwise_and(64) > 0 }}"
+# sprsun_pc_failure_symbol_4   1,2,4,8,16,32,64,128
+    - name: Sprsun PC Water inlet temp. failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC Exhaust temperature is too high
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC Low protection of cooling water outlet
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC Inlet gas temp. failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(64) > 0 }}"
+# sprsun_pc_failure_symbol_5
+    - name: Sprsun PC Low pressure protection
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(1) > 0 }}"
+    - name: Sprsun PC High pressure protection
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC Coil temperature is too high
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(4) > 0 }}"
+    - name: Sprsun PC High pressure sensor failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(64) > 0 }}"
+    - name: Sprsun PC Low pressure sensor failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(128) > 0 }}"
+# sprsun_pc_failure_symbol_6
+    - name: Sprsun PC sec antifreeze
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_6')|int|bitwise_and(16) > 0 }}"
+    - name: Sprsun PC one antifreeze
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_6')|int|bitwise_and(32) > 0 }}"
+# sprsun_pc_failure_symbol_7
+    - name: Sprsun PC Ambient temperature is too low
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(2) > 0 }}"
+    - name: Sprsun PC frequency conversion module is faulty
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(16) > 0 }}"
+    - name: Sprsun PC 2# Dc fan failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(32) > 0 }}"
+    - name: Sprsun PC 1# Dc fan failure
+      state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(64) > 0 }}"
+
