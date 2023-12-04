@@ -11,7 +11,7 @@ modbus:
     delay: 5
     timeout: 5
     type: tcp
-    host: 192.168.x.x
+    host: 192.168.6.203
     port: 502
     
     climates:
@@ -212,6 +212,13 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
+      - name: "Sprsun Pc Invalid 10"
+        slave: 1
+        address: 0x0010
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
       - name: "Sprsun Pc temperatura zewnętrzna (Ambi temp.)"
         slave: 1
         address: 0x0011
@@ -232,6 +239,19 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
+      - name: "Sprsun Pc Invalid 13"
+        slave: 1
+        address: 0x0013
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 14"
+        slave: 1
+        address: 0x0014
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
 
       - name: "Sprsun Pc temperatura gazu-wlot (Suct gas temp.)"
         slave: 1
@@ -249,9 +269,37 @@ modbus:
         input_type: holding
         data_type: int16
         scan_interval: 30
-        scale: 0.1
+        scale: 0.5
         precision: 1
         unit_of_measurement: "°C"
+
+      - name: "Sprsun Pc Invalid 17"
+        slave: 1
+        address: 0x0017
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 18"
+        slave: 1
+        address: 0x0018
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 19"
+        slave: 1
+        address: 0x0019
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 1A"
+        slave: 1
+        address: 0x001A
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
        
       - name: "Sprsun Pc Exhaust temp."
         slave: 1
@@ -514,6 +562,8 @@ modbus:
         data_type: int16
         scan_interval: 60 
         unit_of_measurement: "min"
+        scale: 5
+
  
       - name: "Sprsun Pc H16 Comp continuous run"
         slave: 1
@@ -538,6 +588,526 @@ modbus:
         data_type: int16
         scan_interval: 60 
         unit_of_measurement: "s"
+
+      - name: "Sprsun Pc A14 MV heat initial 0"
+        slave: 1
+        address: 0x003F
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A15 MV heat initial 1"
+        slave: 1
+        address: 0x0040
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A16 MV heat initial 2"
+        slave: 1
+        address: 0x0041
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A17 MV heat initial 3"
+        slave: 1
+        address: 0x0042
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A18 MV heat initial 4"
+        slave: 1
+        address: 0x0043
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A19 MV heat initial 5"
+        slave: 1
+        address: 0x0044
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A20 MV heat initial 6"
+        slave: 1
+        address: 0x0045
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A21 MV heat initial 7"
+        slave: 1
+        address: 0x0046
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A22 MV cool initial 0"
+        slave: 1
+        address: 0x0047
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A23 MV cool initial 1"
+        slave: 1
+        address: 0x0048
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A24 MV cool initial 2"
+        slave: 1
+        address: 0x0049
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A25 MV cool initial 3"
+        slave: 1
+        address: 0x004A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A26 MV water initial 0"
+        slave: 1
+        address: 0x004B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A27 MV water initial 1"
+        slave: 1
+        address: 0x004C
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A28 MV water initial 2"
+        slave: 1
+        address: 0x004D
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A29 MV water initial 3"
+        slave: 1
+        address: 0x004E
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A30 MV water initial 4"
+        slave: 1
+        address: 0x004F
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A31 MV water initial 5"
+        slave: 1
+        address: 0x0050
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A32 MV water initial 6"
+        slave: 1
+        address: 0x0051
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A33 MV water initial 7"
+        slave: 1
+        address: 0x0052
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 0"
+        slave: 1
+        address: 0x0053
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 1"
+        slave: 1
+        address: 0x0054
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 2"
+        slave: 1
+        address: 0x0055
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 3"
+        slave: 1
+        address: 0x0056
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 4"
+        slave: 1
+        address: 0x0057
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 5"
+        slave: 1
+        address: 0x0058
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 6"
+        slave: 1
+        address: 0x0059
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A34 MV heat lower 7"
+        slave: 1
+        address: 0x005A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A43 MV defrost open"
+        slave: 1
+        address: 0x005B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A44 MV water lower"
+        slave: 1
+        address: 0x005C
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A46 MV manual open"
+        slave: 1
+        address: 0x005D
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc A47 MV SH ratio"
+        slave: 1
+        address: 0x005E
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc A48 MV SH diff."
+        slave: 1
+        address: 0x005F
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc A50 MV comp.keep time"
+        slave: 1
+        address: 0x0060
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+        unit_of_measurement: "s"
+
+      - name: "Sprsun Pc A51 MV def.keep time"
+        slave: 1
+        address: 0x0061
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+        unit_of_measurement: "s"
+
+      - name: "Sprsun Pc B02 AV manual open"
+        slave: 1
+        address: 0x0062
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B04 AV exhaust ratio"
+        slave: 1
+        address: 0x0063
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc B05 AV exhaust diff."
+        slave: 1
+        address: 0x0064
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc B06 AV SH ratio"
+        slave: 1
+        address: 0x0065
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc B07 AV SH diff."
+        slave: 1
+        address: 0x0066
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+
+      - name: "Sprsun Pc B08 AV period"
+        slave: 1
+        address: 0x0067
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        unit_of_measurement: "s"
+
+      - name: "Sprsun Pc B19 AV heat initial 0"
+        slave: 1
+        address: 0x0068
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B20 AV heat initial 1"
+        slave: 1
+        address: 0x0069
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc Invalid 6A"
+        slave: 1
+        address: 0x006A
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 6B"
+        slave: 1
+        address: 0x006B
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 6C"
+        slave: 1
+        address: 0x006C
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 6D"
+        slave: 1
+        address: 0x006D
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 6E"
+        slave: 1
+        address: 0x006E
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 6F"
+        slave: 1
+        address: 0x0010
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc B27 AV water initial 0"
+        slave: 1
+        address: 0x0070
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B28 AV water initial 1"
+        slave: 1
+        address: 0x0071
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc Invalid 72"
+        slave: 1
+        address: 0x0072
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 73"
+        slave: 1
+        address: 0x0073
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 74"
+        slave: 1
+        address: 0x0074
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 75"
+        slave: 1
+        address: 0x0075
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 76"
+        slave: 1
+        address: 0x0076
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 77"
+        slave: 1
+        address: 0x0077
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc B35 AV heat lower 0"
+        slave: 1
+        address: 0x0078
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B36 AV heat lower 1"
+        slave: 1
+        address: 0x0079
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B37 AV heat lower 2"
+        slave: 1
+        address: 0x007A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B38 AV heat lower 3"
+        slave: 1
+        address: 0x007B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B39 AV heat lower 4"
+        slave: 1
+        address: 0x007C
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B40 AV heat lower 5"
+        slave: 1
+        address: 0x007D
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B41 AV heat lower 6"
+        slave: 1
+        address: 0x007E
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B42 AV heat lower 7"
+        slave: 1
+        address: 0x007F
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B43 AV defrost open"
+        slave: 1
+        address: 0x0080
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
+
+      - name: "Sprsun Pc B44 AV cool open"
+        slave: 1
+        address: 0x0081
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 2
 
 ######################################
       - name: "Sprsun Pc B91 AV water exh diff 7"
@@ -583,6 +1153,71 @@ modbus:
 # CA, CB, CC są na początku-climate    
                           
 ######################################
+
+      - name: "Sprsun Pc Invalid 118"
+        slave: 1
+        address: 0x0118
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 125"
+        slave: 1
+        address: 0x0125
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 126"
+        slave: 1
+        address: 0x0126
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 127"
+        slave: 1
+        address: 0x0127
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 128"
+        slave: 1
+        address: 0x0128
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 129"
+        slave: 1
+        address: 0x0129
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 12A"
+        slave: 1
+        address: 0x012A
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 12B"
+        slave: 1
+        address: 0x012B
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+      - name: "Sprsun Pc Invalid 12C"
+        slave: 1
+        address: 0x012C
+        input_type: holding
+        data_type: int16
+        scan_interval: 180
+
+#########
       - name: "Sprsun Pc G08 Comp.delay"
         slave: 1
         address: 0x0181
@@ -838,7 +1473,8 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
- 
+        scale: 0.5
+
       - name: "Sprsun Pc heat Set temp of Timeband 1"
         slave: 1
         address: 0x01A5
@@ -846,6 +1482,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc cool Set temp of Timeband 1"
         slave: 1
@@ -854,6 +1491,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc Hotwater Set temp of Timeband 2"
         slave: 1
@@ -862,6 +1500,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc heat Set temp of Timeband 2"
         slave: 1
@@ -870,6 +1509,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc cool Set temp of Timeband 2"
         slave: 1
@@ -878,6 +1518,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc Hotwater Set temp of Timeband 3"
         slave: 1
@@ -886,6 +1527,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc heat Set temp of Timeband 3"
         slave: 1
@@ -894,6 +1536,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
  
       - name: "Sprsun Pc cool Set temp of Timeband 3"
         slave: 1
@@ -902,6 +1545,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
         unit_of_measurement: "°C"
+        scale: 0.5
 
       - name: "Sprsun Pc Week set of Timeband 1"
         slave: 1
@@ -1093,6 +1737,23 @@ template:
     - name: "Data godzina dzień"
       state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%Y-%m-%d %H:%m:%s %A') }}"
       icon: "mdi:calendar-clock"
+    - name: "Sprsun COP"
+      unit_of_measurement: ''
+# temperatura zasilania - temperatura powrotu)x(przepływ na godzinę)x(ciepło właściwe wody)/3.6 i wynik jest w kW    
+      state: >-
+        {% set tz = states('sensor.sprsun_pc_temperatura_zasilania_outlet_temp') | float(0) %}
+        {% set tp = states('sensor.sprsun_pc_temperatura_powrotu_inlet_temp') | float(0) %}
+        {% set mp = states('sensor.nodemcuv3_pzem_016_power') | float(1) %}
+        {% set png = 1000 %}   
+        {% set cw = 4200 %}   
+        {% set wsp = 3600000 %} 
+        {% set pwm = ((states('sensor.sprsun_pc_pompka_pwm_dc_pump_speed') | float(0))/100) %}
+        
+        {% if mp  >= 70 %}        
+           {{ ( ((tz-tp)*(png*pwm*cw)/wsp) / (3*mp/1000) ) | round(2) }}
+        {% else %}
+           {{ (0) | round(2) }}
+        {% endif %}
         
   - binary_sensor:
 # working_status_mark
