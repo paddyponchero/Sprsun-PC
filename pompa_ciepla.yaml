@@ -27,7 +27,7 @@ modbus:
         scale: 0.5
         target_temp_register: 0x00CC
         temp_step: 1.0
-        temperature_unit: C
+        temperature_unit: °C
         scan_interval: 60
 
       - name: "Sprsun Pc chłodzenie-temperatura zadana (P02 Cooling setp)"
@@ -42,7 +42,7 @@ modbus:
         scale: 0.5
         target_temp_register: 0x00CB
         temp_step: 1.0
-        temperature_unit: C
+        temperature_unit: °C
         scan_interval: 60
 
       - name: "Sprsun Pc CWU-temperatura zadana (P04 Hotwater setp)"
@@ -57,7 +57,7 @@ modbus:
         scale: 0.5
         target_temp_register: 0x00CA
         temp_step: 1.0
-        temperature_unit: C
+        temperature_unit: °C
         scan_interval: 60
 
       - name: "Sprsun Pc róznica temperatur przy grzaniu (P03 Temp.diff)"
@@ -73,7 +73,7 @@ modbus:
         target_temp_register: 0x00C6
         temp_step: 1.0
         scan_interval: 60 
-        temperature_unit: C
+        temperature_unit: °C
 
       - name: "Sprsun Pc różnica temperatur dla ciepłej wody (P05 Temp.diff)"
         slave: 1
@@ -88,7 +88,232 @@ modbus:
         target_temp_register: 0x00C8
         temp_step: 1.0
         scan_interval: 60 
-        temperature_unit: C
+        temperature_unit: °C
+
+      - name: "Sprsun Pc F44 WT temp calibration"
+        slave: 1
+        address: 0x00CD
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00CD
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F45 Inlet temp calibration"
+        slave: 1
+        address: 0x00CE
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00CE
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F46 Outlet temp calibration"
+        slave: 1
+        address: 0x00CF
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00CF
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F49 WT temp offset stp."
+        slave: 1
+        address: 0x00D0
+        input_type: holding
+        data_type: int16
+        max_temp: 55
+        min_temp: 30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D0
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F50 Inlet temp offset stp."
+        slave: 1
+        address: 0x00D1
+        input_type: holding
+        data_type: int16
+        max_temp: 55
+        min_temp: 30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D1
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F42 Water temp offset"
+        slave: 1
+        address: 0x00D2
+        input_type: holding
+        data_type: int16
+        max_temp: 50
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D2
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc F43 Inlet temp offset"
+        slave: 1
+        address: 0x00D3
+        input_type: holding
+        data_type: int16
+        max_temp: 50
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D3
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H03 Defrost in stp."
+        slave: 1
+        address: 0x00D4
+        input_type: holding
+        data_type: int16
+        max_temp: -1
+        min_temp: -15
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D4
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H04 Defrost exit stp."
+        slave: 1
+        address: 0x00D5
+        input_type: holding
+        data_type: int16
+        max_temp: 40
+        min_temp: 1
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D5
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H07 Def ambi coil 1"
+        slave: 1
+        address: 0x00D6
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D6
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H10 Def ambi coil 2"
+        slave: 1
+        address: 0x00D7
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D7
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H13 Def ambi coil 3"
+        slave: 1
+        address: 0x00D8
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D8
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H09 Defrost ambi stp.1"
+        slave: 1
+        address: 0x00D9
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00D9
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H12 Defrost ambi stp.2"
+        slave: 1
+        address: 0x00DA
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00DA
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
+
+      - name: "Sprsun Pc H04 Defrost ambi stp"
+        slave: 1
+        address: 0x00DB
+        input_type: holding
+        data_type: int16
+        max_temp: 30
+        min_temp: -30
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00DB
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C        
 
       - name: "Sprsun Pc G04 Delta temp.set"
         slave: 1
@@ -103,9 +328,28 @@ modbus:
         target_temp_register: 0x018D
         temp_step: 1.0
         scan_interval: 60 
-        temperature_unit: C
+        temperature_unit: °C
 
     sensors:
+      - name: "Sprsun Pc Czas pracy 0"
+        slave: 1
+        address: 0x0000
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 1
+        precision: 2
+        unit_of_measurement: "min"
+        
+      - name: "Sprsun Pc Invalid 1"
+        slave: 1
+        address: 0x0001
+        input_type: holding
+        data_type: int16
+        scan_interval: 60
+        scale: 1
+        precision: 2
+        unit_of_measurement: "min"
 
       - name: "Sprsun Pc Switching input symbol"
         slave: 1
@@ -486,7 +730,7 @@ modbus:
         input_type: holding
         data_type: int16
         scan_interval: 60
-        unit_of_measurement: "rpm"
+        unit_of_measurement: "Hz"
 
       - name: "Sprsun Pc Parameter marker definition"
         slave: 1
@@ -1151,7 +1395,7 @@ modbus:
         unit_of_measurement: "°C"
 
 # CA, CB, CC są na początku-climate    
-                          
+# do DB                          
 ######################################
 
       - name: "Sprsun Pc Invalid 118"
@@ -1893,3 +2137,26 @@ template:
     - name: Sprsun PC 1# Dc fan failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(64) > 0 }}"
 
+
+#   - sensor: 
+  
+#     - name: "SunPc temperatura podgrzewania"
+#       unit_of_measurement: "°C"
+#       state: >
+#         {% set zasilanie= states('sensor.sunpc_temperatura_zasilania') | float(0) %}
+#         {% set powrot = states('sensor.sunpc_temperatura_powrotu') | float(0) %}
+#         {{ ((zasilanie - powrot) / 1) | round(1) }}
+
+#     - name: "SunPc średnia prędkość wentylatorów"
+#       unit_of_measurement: "obr"
+#       state: >
+#         {% set W1= states('sensor.sunpc_predkosc_wentylatora_1') | float(0) %}
+#         {% set W2 = states('sensor.sunpc_predkosc_wentylatora_2') | float(0) %}
+#         {{ ((W1 + W2) / 2) | round(0) }}
+
+#     - name: "Dom temperatura różnica"
+#       unit_of_measurement: "°C"
+#       state: >
+#         {% set zasilanie= states('sensor.kotlowniaczujniki_ds18b20_6_temperature') | float(0) %}
+#         {% set powrot = states('sensor.kotlowniaczujniki_ds18b20_4_temperature') | float(0) %}
+#         {{ ((zasilanie - powrot) / 1) | round(1) }}
