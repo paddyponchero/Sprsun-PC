@@ -5,7 +5,31 @@ sensor:
       - 'date_time'
       - 'time'
       - 'date'
-
+      
+  - platform: history_stats
+    name: Sprsun PC czas pracy sprężarki
+    entity_id: binary_sensor.sprsun_pc_compressor
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+    
+  - platform: history_stats
+    name: Sprsun PC ilość zalączeń sprężarki
+    entity_id: binary_sensor.sprsun_pc_compressor
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"    
+    
+  - platform: filter
+    name: Average COP
+    entity_id: sensor.cop_do_sredniej
+    filters:
+      - filter: time_simple_moving_average
+        window_size: "24:00"
+        precision: 2
+        
 modbus:
   - name: "Sprsun PC"
     delay: 5
@@ -74,7 +98,22 @@ modbus:
         temp_step: 1.0
         scan_interval: 60 
         temperature_unit: °C
-
+        
+      - name: "Sprsun Pc F39 AC constant temp diff"
+        slave: 1
+        address: 0x00C7
+        input_type: holding
+        data_type: int16
+        max_temp: 10
+        min_temp: 1
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00C7
+        temp_step: 1.0        
+        scan_interval: 60 
+        temperature_unit: °C
+        
       - name: "Sprsun Pc różnica temperatur dla ciepłej wody (P05 Temp.diff)"
         slave: 1
         address: 0x00C8
@@ -89,21 +128,36 @@ modbus:
         temp_step: 1.0
         scan_interval: 60 
         temperature_unit: °C
+        
+      - name: "Sprsun Pc F40 WT constant temp diff"
+        slave: 1
+        address: 0x00C9
+        input_type: holding
+        data_type: int16
+        max_temp: 10
+        min_temp: 0
+        offset: 0
+        precision: 1
+        scale: 1
+        target_temp_register: 0x00C9
+        temp_step: 1.0
+        scan_interval: 60 
+        temperature_unit: °C
 
       - name: "Sprsun Pc F44 WT temp calibration"
         slave: 1
         address: 0x00CD
         input_type: holding
         data_type: int16
+        min_temp: -30       
         max_temp: 30
-        min_temp: -30
         offset: 0
         precision: 1
         scale: 1
         target_temp_register: 0x00CD
         temp_step: 1.0
         scan_interval: 60 
-        temperature_unit: °C        
+        temperature_unit: "°C"        
 
       - name: "Sprsun Pc F45 Inlet temp calibration"
         slave: 1
@@ -443,7 +497,7 @@ modbus:
         data_type: int16
         scan_interval: 30
         scale: 0.1
-        precision: 2
+        precision: 1
         unit_of_measurement: "°C"
 
       - name: "Sprsun Pc temperatura wody użytkowej (Hotwater temp.)"
@@ -551,6 +605,8 @@ modbus:
         input_type: holding
         data_type: int16
         scan_interval: 30
+        scale: 1
+        unit_of_measurement: "°C"
         
       - name: "Sprsun Pc zawór EEV1 step."
         slave: 1
@@ -1210,7 +1266,7 @@ modbus:
 
       - name: "Sprsun Pc Invalid 6F"
         slave: 1
-        address: 0x0010
+        address: 0x006F
         input_type: holding
         data_type: int16
         scan_interval: 180
@@ -1370,13 +1426,13 @@ modbus:
  #       scan_interval: 60 
  #       unit_of_measurement: "°C"
 
-      - name: "Sprsun Pc F39 AC constant temp diff"
-        slave: 1
-        address: 0x00C7
-        input_type: holding
-        data_type: int16
-        scan_interval: 60 
-        unit_of_measurement: "°C"
+    #   - name: "Sprsun Pc F39 AC constant temp diff"
+    #     slave: 1
+    #     address: 0x00C7
+    #     input_type: holding
+    #     data_type: int16
+    #     scan_interval: 60 
+    #     unit_of_measurement: "°C"
 
  #     - name: "Sprsun Pc różnica temperatur dla ciepłej wody (P05 Temp.diff)"
  #       slave: 1
@@ -1386,17 +1442,58 @@ modbus:
  #       scan_interval: 60 
  #       unit_of_measurement: "°C"
 
-      - name: "Sprsun Pc F40 WT constant temp diff"
-        slave: 1
-        address: 0x00C9
-        input_type: holding
-        data_type: int16
-        scan_interval: 60 
-        unit_of_measurement: "°C"
+    #   - name: "Sprsun Pc F40 WT constant temp diff"
+    #     slave: 1
+    #     address: 0x00C9
+    #     input_type: holding
+    #     data_type: int16
+    #     scan_interval: 60 
+    #     unit_of_measurement: "°C"
 
 # CA, CB, CC są na początku-climate    
 # do DB                          
 ######################################
+      - name: "Manual frequency setting 0x00FB"
+        slave: 1
+        address: 0x00FB
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"
+        
+      - name: "Freq of water R00 T>14 0x00FC"
+        slave: 1
+        address: 0x00FC
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"
+        
+      - name: "Freq of water R011 T=(9,14) 0x00FD"
+        slave: 1
+        address: 0x00FD
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"
+        
+      - name: "Freq of heat T>14 R04 0x0104"
+        slave: 1
+        address: 0x0104
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"        
+        
+      - name: "Freq of heat T=(9,14) R05 0x0105"
+        slave: 1
+        address: 0x0105
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "Hz"        
+
+#####################################
 
       - name: "Sprsun Pc Invalid 118"
         slave: 1
@@ -1493,7 +1590,7 @@ modbus:
         data_type: int16
         scan_interval: 60 
         unit_of_measurement: "°C"
-
+  
       - name: "Sprsun Pc G03 Start internal"
         slave: 1
         address: 0x0185
@@ -1906,18 +2003,26 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"
 
-# input_text:
-#   sunpc_status:
-#   sunpc_tryb_wentylatora:
-#   sunpc_alarm:
 
 input_number:
   sprsun_pc_nastawiony_czas_po_g03_start_internal_185:
     name: Nastawiony czas przerw pracy pompy obiegowej
     min: 1
     max: 120
-    step: 1
- 
+    step: 5
+    
+  sprsun_pc_nastawiona_freq_of_water_r00:
+    name: Nastawiona czestotliwosc grzania cwu dla T>14
+    min: 30
+    max: 60
+    step: 1 
+    
+  sprsun_pc_nastawiona_freq_of_heat_r04:
+    name: Nastawiona czestotliwosc ogrzewania dla T>14
+    min: 30
+    max: 60
+    step: 1 
+    
 input_select:
   sprsun_pc_tryb_pracy_p06_unit_mode_36:
     name: Wybór trybu pracy P06 Unit mode
@@ -1979,64 +2084,85 @@ switch:
 template:
   - sensor:
     - name: "Data godzina dzień"
-      state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%Y-%m-%d %H:%m:%s %A') }}"
+      state: "{{now().timestamp() | timestamp_custom('%Y-%m-%d %H:%m:%s %A') }}"
       icon: "mdi:calendar-clock"
+        
+    - name: "Moc pobierana przez PC"
+      unit_of_measurement: "W"
+      state: >
+        {% set p1= states('sensor.faza_l1_moc_czynna_pc') | float(0) %}
+        {% set p2 = states('sensor.faza_l2_moc_czynna_pc') | float(0) %}
+        {% set p3 = states('sensor.faza_l3_moc_czynna_pc') | float(0) %}
+          {{ ((p1 + p2 + p3)) | round(0) }}
+
     - name: "Sprsun COP"
       unit_of_measurement: ''
 # temperatura zasilania - temperatura powrotu)x(przepływ na godzinę)x(ciepło właściwe wody)/3.6 i wynik jest w kW    
       state: >-
-        {% set tz = states('sensor.sprsun_pc_temperatura_zasilania_outlet_temp') | float(0) %}
-        {% set tp = states('sensor.sprsun_pc_temperatura_powrotu_inlet_temp') | float(0) %}
-        {% set mp = states('sensor.nodemcuv3_pzem_016_power') | float(1) %}
-        {% set png = 1000 %}   
+        {% set tz = (states('sensor.sprsun_pc_temperatura_zasilania_outlet_temp') | float(1) - 2 ) %}
+        {% set tp = states('sensor.sprsun_pc_temperatura_powrotu_inlet_temp') | float(1) %}
+        {% set mp = (states('sensor.moc_pobierana_przez_pc') | float(1) + 1 ) %}
+        {% set pw = states('sensor.sprsun_pc_predkosc_wentylatora_1_dc_fan_1_speed') | float(1) %}
+        {% set png = 800 %}   
         {% set cw = 4200 %}   
         {% set wsp = 3600000 %} 
-        {% set pwm = ((states('sensor.sprsun_pc_pompka_pwm_dc_pump_speed') | float(0))/100) %}
+        {% set pwm = ((states('sensor.sprsun_pc_pompka_pwm_dc_pump_speed') | float(1))/1) %}
+        {% set ck = states('sensor.sprsun_pc_czestotliwosc_kompresora_comp_frequency') | float(1) %}
+        {% set copt = ( ((tz-tp)*(png*pwm*cw*10)) / (wsp * mp) ) | float(1) %}
         
-        {% if mp  >= 70 %}        
-           {{ ( ((tz-tp)*(png*pwm*cw)/wsp) / (3*mp/1000) ) | round(2) }}
+        {% if ( copt  > 1 and copt < 11  and ck > 20 and pw > 200 ) %}        
+          {{ ( ((tz-tp)*(png*pwm*cw*10)) / (wsp * mp) ) | round(2) }}
         {% else %}
-           {{ (0) | round(2) }}
-        {% endif %}
+          {{ (0) }}
+        {% endif %} 
+    - name: COP do średniej
+      state: >-
+        {% set cop =  states('sensor.sprsun_cop') | float(0) %}
         
+        {% if ( cop  > 1 ) %}        
+          {{ states('sensor.sprsun_cop') | float(0) }}
+        {% else %}
+          {{ states('sensor.cop_do_sredniej') | float(0) }}
+        {% endif %}     
+
   - binary_sensor:
 # working_status_mark
     - name: Sprsun PC hotwater demand
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(1) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(1) > 0 }}"
       icon: mdi:water-boiler-alert
     - name: Sprsun PC heating demand
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(2) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(2) > 0 }}"
       icon: mdi:water-boiler
     - name: Sprsun PC with or without heating
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(4) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(4) > 0 }}"
       icon: mdi:water-boiler-alert
     - name: Sprsun PC with or without cooling
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(8) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(8) > 0 }}"
       icon: mdi:timer-off
     - name: Sprsun PC antilegionella on
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(16) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(16) > 0 }}"
       icon: mdi:account-cancel
     - name: Sprsun PC cooling demand
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(32) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(32) > 0 }}"
       icon: mdi:connection
     - name: Sprsun PC alarm downtime
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(64) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(64) > 0 }}"
       icon: mdi:water-boiler-off
     - name: Sprsun PC defrost
-      state: "{{ states('sensor.sprsun_pc_working_status_mark')|int|bitwise_and(128) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_working_status_mark')| int(default=0) |int|bitwise_and(128) > 0 }}"
       icon: mdi:hand-front-right
       
 # parameter_marker_definition
     - name: Sprsun PC  0-OFF，1-ON(bit add:0x0320)
-      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(1) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')| int(default=0) |int|bitwise_and(1) > 0 }}"
     - name: Sprsun PC MV mode：0-Auto，1- manu(bit add:0x0321)(A45)
-      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(2) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')| int(default=0) |int|bitwise_and(2) > 0 }}"
     - name: Sprsun PC Manual frequency selection(bit add:0x0322)
-      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(4) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')| int(default=0) |int|bitwise_and(4) > 0 }}"
     - name: Sprsun PC AV MODE：0-Auto，1- manu(bit add:0x0325) (B01)
-      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(32) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')| int(default=0) |int|bitwise_and(32) > 0 }}"
     - name: Sprsun PC AV init outlet stp. (bit add:0x0326) (B93)
-      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')|int|bitwise_and(64) > 0 }}"
+      state: "{{ states('sensor.sprsun_pc_parameter_marker_definition')| int(default=0) |int|bitwise_and(64) > 0 }}"
 # sprsun_pc_switching_input_symbol
     - name: Sprsun PC A/C Linkage switch
       state: "{{ states('sensor.sprsun_pc_switching_input_symbol')|int|bitwise_and(1) > 0 }}"
@@ -2138,25 +2264,33 @@ template:
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(64) > 0 }}"
 
 
-#   - sensor: 
-  
-#     - name: "SunPc temperatura podgrzewania"
-#       unit_of_measurement: "°C"
-#       state: >
-#         {% set zasilanie= states('sensor.sunpc_temperatura_zasilania') | float(0) %}
-#         {% set powrot = states('sensor.sunpc_temperatura_powrotu') | float(0) %}
-#         {{ ((zasilanie - powrot) / 1) | round(1) }}
-
-#     - name: "SunPc średnia prędkość wentylatorów"
-#       unit_of_measurement: "obr"
-#       state: >
-#         {% set W1= states('sensor.sunpc_predkosc_wentylatora_1') | float(0) %}
-#         {% set W2 = states('sensor.sunpc_predkosc_wentylatora_2') | float(0) %}
-#         {{ ((W1 + W2) / 2) | round(0) }}
-
-#     - name: "Dom temperatura różnica"
-#       unit_of_measurement: "°C"
-#       state: >
-#         {% set zasilanie= states('sensor.kotlowniaczujniki_ds18b20_6_temperature') | float(0) %}
-#         {% set powrot = states('sensor.kotlowniaczujniki_ds18b20_4_temperature') | float(0) %}
-#         {{ ((zasilanie - powrot) / 1) | round(1) }}
+utility_meter:
+  zuzycie_energii_pc_dzienne:
+    source: sensor.energia_czynna_pobrana_pc
+    name: Dzienne zużycie energii przez PC Sprsun
+    cycle: daily
+  zuzycie_energii_pc_miesieczne:
+    source: sensor.energia_czynna_pobrana_pc
+    name: Miesieczne zużycie energii przez PC Sprsun
+    cycle: monthly
+  zuzycie_energii_pc_roczne:
+    source: sensor.energia_czynna_pobrana_pc
+    name: Roczne zużycie energii przez PC Sprsun
+    cycle: yearly
+    
+  miesieczny_czas_pracy_sprezarki:
+    source: sensor.sprsun_pc_czas_pracy_sprezarki
+    name: Sprsun - miesięczny czas pracy sprężarki
+    cycle: monthly
+  roczny_czas_pracy_sprezarki:
+    source: sensor.sprsun_pc_czas_pracy_sprezarki
+    name: Sprsun - Roczny czas pracy sprężarki
+    cycle: yearly
+  miesieczna_ilosc_zalaczen_sprezarki:
+    source: sensor.sprsun_pc_ilosc_zalaczen_sprezarki
+    name: Sprsun - miesięczna ilość załączeń sprężarki
+    cycle: monthly
+  roczna_ilosc_zalaczen_sprezarki:
+    source: sensor.sprsun_pc_ilosc_zalaczen_sprezarki
+    name: Sprsun - Roczna ilość załączeń sprężarki
+    cycle: yearly
