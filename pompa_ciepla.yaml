@@ -35,8 +35,8 @@ modbus:
     delay: 5
     timeout: 5
     type: tcp
-    host: 192.168.6.203
-    port: 502
+    host: 192.168.0.67
+    port: 4196
     
     climates:
       - name: "Sprsun Pc ogrzewanie-temperatura zadana (P01 Heating setp)"
